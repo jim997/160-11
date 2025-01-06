@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HappyEase Hong Kong Limited</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <style>
+        /* Additional styles */
+        .review-section, .team-section, .pricing-section {
+            background-color: var(--bg-color);
+            padding: 80px 0;
+        }
+        .review-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .team-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .team-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .team-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        .team-card p {
+            margin-bottom: 15px;
+        }
+        .team-card .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .team-card .social-links a {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .pricing-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .pricing-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        .pricing-card ul li {
+            margin-bottom: 10px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            animation: fadeIn 0.3s;
+        }
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 10% auto;
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .close:hover {
+            color: var(--primary-color);
+        }
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        .modal-content form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <div class="container">
+                <img src="Logo.svg" alt="HappyEase Hong Kong Limited" class="logo-img">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#review">Review</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" id="signUpBtn">Sign Up</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>HappyEase Hong Kong Limited</h1>
+                <p>Innovative solutions for modern living and working spaces</p>
+                <div class="cta-buttons">
+                    <a href="#features" class="btn primary">Explore Features</a>
+                    <a href="#contact" class="btn secondary">Contact Us</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <div class="container">
+                <h2 class="section-title">Our Features</h2>
+                <div class="advantages-grid">
+                    <div class="advantage-item">
+                        <i class="fas fa-home"></i>
+                        <h3>Smart Home Solutions</h3>
+                        <p>Integrate cutting-edge technology into your living spaces.</p>
+                    </div>
+                    <div class="advantage-item">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Innovative Hardware</h3>
+                        <p>High-quality hardware for furniture and architectural applications.</p>
+                    </div>
+                    <div class="advantage-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Lighting Systems</h3>
+                        <p>Energy-efficient lighting solutions for every room.</p>
+                    </div>
+                    <div class="advantage-item">
+                        <i class="fas fa-lock"></i>
+                        <h3>Security Products</h3>
+                        <p>Advanced security systems to keep your property safe.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="review" class="review-section">
+            <div class="container">
+                <h2 class="section-title">Customer Reviews</h2>
+                <div class="review-card">
+                    <p>"products have transformed our home. The quality and design are unmatched!"</p>
+                    <h4>- John Doe, Homeowner</h4>
+                </div>
+                <div class="review-card">
+                    <p>"As an architect, I always recommend Hafele to my clients. Their range of solutions is impressive."</p>
+                    <h4>- Jane Smith, Architect</h4>
+                </div>
+                <div class="review-card">
+                    <p>"The smart home solutions from Hafele have made our daily life so much more convenient. Absolutely love it!"</p>
+                    <h4>- Michael Chen, Tech Enthusiast</h4>
+                </div>
+                <div class="review-card">
+                    <p>"lighting systems have completely transformed the ambiance of our restaurant. Our customers love the new look!"</p>
+                    <h4>- Sophia Kwok, Restaurant Owner</h4>
+                </div>
+                <div class="review-card">
+                    <p>"As an interior designer, I find product range to be versatile and of superior quality. They're my go-to for all projects."</p>
+                    <h4>- Liam O'Connor, Interior Designer</h4>
+                </div>
+                <div class="review-card">
+                    <p>"The security systems from Hafele give me peace of mind. Installation was easy and the performance is top-notch."</p>
+                    <h4>- Zhang Wei, Small Business Owner</h4>
+                </div>
+            </div>
+        </section>
+        
+        
+
+        <section id="team" class="team-section">
+            <div class="container">
+                <h2 class="section-title">Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="man.png" alt="Alex Wong">
+                        <h3>Alex Wong</h3>
+                        <p>CEO</p>
+                        <p>With over 20 years of experience in the industry, Alex leads our company with vision and innovation.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <img src="women.png" alt="Sarah Chen">
+                        <h3>Sarah Chen</h3>
+                        <p>Head of Design</p>
+                        <p>Sarah's creative approach to design has revolutionized our product line, earning multiple industry awards.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <img src="man2.png" alt="David Lee">
+                        <h3>David Lee</h3>
+                        <p>Chief Technology Officer</p>
+                        <p>David's expertise in smart home technology keeps Hafele at the forefront of innovation.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <img src="women2.png" alt="Emily Tan">
+                        <h3>Emily Tan</h3>
+                        <p>Customer Relations Manager</p>
+                        <p>Emily ensures our clients receive top-notch service and support throughout their journey with us.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing-section">
+            <div class="container">
+                <h2 class="section-title">Pricing Plans</h2>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3>Basic Package</h3>
+                        <p class="price">$999</p>
+                        <ul>
+                            <li>Smart Home Starter Kit</li>
+                            <li>Basic Security System</li>
+                            <li>1-Year Warranty</li>
+                            <li>Email Support</li>
+                        </ul>
+                        <a href="#" class="btn primary">Choose Plan</a>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Pro Package</h3>
+                        <p class="price">$1499</p>
+                        <ul>
+                            <li>Advanced Smart Home System</li>
+                            <li>Enhanced Security Suite</li>
+                            <li>2-Year Warranty</li>
+                            <li>Priority Support</li>
+                        </ul>
+                        <a href="#" class="btn primary">Choose Plan</a>
+                    </div>
+                    <div class="pricing-card">
+                        <h3>Premium Package</h3>
+                        <p class="price">$1999</p>
+                        <ul>
+                            <li>Full Smart Home Ecosystem</li>
+                            <li>Comprehensive Security System</li>
+                            <li>3-Year Warranty</li>
+                            <li>24/7 VIP Support</li>
+                        </ul>
+                        <a href="#" class="btn primary">Choose Plan</a>
+                    </div>
+               
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h3>Get in Touch</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Hafele Street, Hong Kong</p>
+                        <p><i class="fas fa-phone"></i> +852 5669 4586</p>
+                        <p><i class="fas fa-envelope"></i> info@hafelehk.com</p>
+                    </div>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <i class="fas fa-pen"></i>
+                            <textarea placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="Logo.svg" alt="HappyEase Hong Kong Limited" class="footer-logo-img">
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#review">Review</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <p>&copy; 2024 HappyEase Hong Kong Limited. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form>
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <button type="submit" class="btn primary">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        var modal = document.getElementById("signUpModal");
+        var btn = document.getElementById("signUpBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
